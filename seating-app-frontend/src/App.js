@@ -4,13 +4,14 @@ import Navbar from "./components/Navbar";
 import ClassroomsPage from "./components/classroomsPage";
 import ExamsPage from "./components/examsPage";
 import Allocation from "./components/Allocation";
-
+import Home from "./components/Home";
 function App() {
   return (
     <Router>
       <div>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/classrooms" element={<ClassroomsPage />} />
           <Route path="/exams" element={<ExamsPage />} />
           <Route path="/allocation" element={<Allocation />} />
