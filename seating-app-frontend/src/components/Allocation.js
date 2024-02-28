@@ -241,9 +241,7 @@ const Allocation = () => {
           >
             Arrange
           </Button>
-          <Button variant="contained" color="primary">
-            Receive Mail
-          </Button>
+
         </div>
       </div>
     </div>
