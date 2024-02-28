@@ -34,11 +34,13 @@ body {
 
 .TableHead {
   background-color: #9f9894;
+  /* color: black; */
 }
 
 .TableHeadCell {
   font-weight: bold;
   color: white !important;
+  background-color: #9f9894;
 }
 
 .TableRow {
