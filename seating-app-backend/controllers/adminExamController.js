@@ -49,11 +49,17 @@ const examsController = {
 
   deleteAllExamSchedules: async (req, res) => {
     try {
+      // Delete all exam schedules
       await ExamSchedule.deleteMany();
+
+      // Delete all students
+      await Student.deleteMany();
 
       res
         .status(200)
-        .json({ message: "All exam schedules deleted successfully" });
+        .json({
+          message: "All exam schedules and students deleted successfully",
+        });
     } catch (error) {
       console.error("Error:", error);
       res.status(500).json({ message: "Internal server error" });
@@ -164,7 +170,6 @@ const examsController = {
 
       const allocatedRooms = {};
 
-
       let currentIndex = 0;
       for (let i = 0; i < selectedHalls.length; i++) {
         const hall = selectedHalls[i];
@@ -176,13 +181,13 @@ const examsController = {
           currentIndex,
           currentIndex + capacity
         );
-        const rooms = await classrooms.findOne({ "Room_Number": hall });
+        const rooms = await classrooms.findOne({ Room_Number: hall });
         if (rooms) {
           // Update the max_allocate field
           console.log("updating the classrooms data");
           await classrooms.updateOne(
-            { "_id": rooms._id },
-            { $set: { "max_allocate": rooms.max_allocate - 1 } }
+            { _id: rooms._id },
+            { $set: { max_allocate: rooms.max_allocate - 1 } }
           );
 
           console.log(`Updated max_allocate for room ${hall}`);

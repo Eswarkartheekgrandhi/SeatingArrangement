@@ -47,9 +47,14 @@ function SchedulePage() {
   useEffect(() => {
     const storedExamSchedules = localStorage.getItem("examSchedules");
 
-    if (storedExamSchedules) {
+    if (storedExamSchedules && JSON.parse(storedExamSchedules).length > 0) {
+      console.log(
+        "Retrieved exam schedules from local storage:",
+        storedExamSchedules
+      );
       setExamSchedules(JSON.parse(storedExamSchedules));
     } else {
+      console.log("Fetching exam schedules from server...");
       fetchExamSchedules();
     }
   }, []);
@@ -158,6 +163,7 @@ function SchedulePage() {
 
         if (response.ok) {
           console.log("All exam schedules deleted successfully");
+          fetchExamSchedules();
         } else {
           console.error("Failed to delete all exam schedules");
         }
@@ -247,8 +253,7 @@ function SchedulePage() {
             <MenuItem value="branch2">ECE</MenuItem>
             <MenuItem value="branch3">EEE</MenuItem>
             <MenuItem value="branch4">MECH</MenuItem>
-
-
+            <MenuItem value="branch4">CIVIL</MenuItem>
           </Select>
         </div>
         <div className="f1">
