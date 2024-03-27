@@ -47,11 +47,18 @@ const ClassroomsPage = () => {
   };
 
   useEffect(() => {
+    console.log("Fetching available rooms...");
     const storedAvailableRooms = localStorage.getItem("availableRooms");
 
     if (storedAvailableRooms) {
+      console.log(
+        "Retrieved available rooms from local storage:",
+        JSON.parse(storedAvailableRooms)
+      );
+      console.log("arr: ", availableRooms);
       setAvailableRooms(JSON.parse(storedAvailableRooms));
     } else {
+      console.log("Fetching available rooms from server...");
       fetchAvailableRooms();
     }
   }, []);
@@ -86,6 +93,9 @@ const ClassroomsPage = () => {
         };
 
         setAvailableRooms([...availableRooms, newRoom]);
+
+        // Fetch available rooms again to update the list
+        fetchAvailableRooms();
 
         setRoomNumber("");
         setFloorNumber("");
@@ -124,6 +134,9 @@ const ClassroomsPage = () => {
         const updatedRooms = [...availableRooms];
         updatedRooms.splice(index, 1);
         setAvailableRooms(updatedRooms);
+
+        // Fetch updated list of classrooms from the database
+        fetchAvailableRooms();
       } else {
         // Handle errors if any
         console.error("Failed to delete classroom");
@@ -179,7 +192,7 @@ const ClassroomsPage = () => {
 
   const getTotalAvailableSeats = () => {
     const totalSeats = availableRooms.reduce(
-      (total, room) => total + parseInt(room.availableSeats),
+      (total, room) => total + parseInt(room.Available_Seats || 0),
       0
     );
     return totalSeats;
@@ -255,10 +268,10 @@ const ClassroomsPage = () => {
             <TableBody>
               {availableRooms.map((room, index) => (
                 <TableRow key={index} className="TableRow">
-                  <TableCell>{room.roomNumber}</TableCell>
-                  <TableCell>{room.floorNumber}</TableCell>
-                  <TableCell>{room.block}</TableCell>
-                  <TableCell>{room.availableSeats}</TableCell>
+                  <TableCell>{room.Room_Number}</TableCell>
+                  <TableCell>{room.Floor_Number}</TableCell>
+                  <TableCell>{room.Block}</TableCell>
+                  <TableCell>{room.Available_Seats}</TableCell>
                   <TableCell>
                     <IconButton onClick={() => handleDeleteRoom(index)}>
                       <DeleteIcon />

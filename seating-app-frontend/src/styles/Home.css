@@ -1,15 +1,15 @@
 .Home {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 .Home-container {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    width: 80vw;
-    height: 60vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  width: 80vw;
+  height: 60vh;
 }
